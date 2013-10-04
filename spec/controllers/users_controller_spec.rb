@@ -79,7 +79,7 @@ describe UsersController do
 
 	end
 
-	describe 'show' do
+	describe 'GET show' do
 		before(:each) do
 			@user = FactoryGirl.create(:user)
 		end
@@ -102,6 +102,31 @@ describe UsersController do
 				response.should be_success
 
 			end
+
+		end
+
+	end
+
+	describe 'GET index' do
+		before(:each) do
+			@user = FactoryGirl.create(:user)
+			test_sign_in(@user)
+			2.times do 
+				user = FactoryGirl.create(:user)
+			end
+			@user_count = (User.all.count-1)
+			
+		end
+
+		it "should show all the existing users" do
+			get :index
+			assigns(:users).count.should == @user_count
+
+		end
+
+		it "should not show the current user" do
+			get :index
+			assigns(:users).should_not include(@user)
 
 		end
 

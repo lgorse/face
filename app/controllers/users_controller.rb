@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-	before_filter :authenticate, :only => [:show]
+	before_filter :authenticate, :only => [:show, :index]
 
 	def new
 		if signed_in
@@ -22,7 +22,12 @@ class UsersController < ApplicationController
 	end
 
 	def show
-		@user = User.find(session[:user_id])
+		
+
+	end
+
+	def index
+		@users = User.all.reject{|user| user.id == @current_user.id}
 
 	end
 end
