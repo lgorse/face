@@ -7,9 +7,19 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-<div class="container">
-	<%=render 'layouts/header', :locals => {:flash => flash} %>
-<%= yield %>
-</div>
+	
+	<%= render 'layouts/flash', :locals => {:flash => flash} %>
+	<% if signed_in %>
+	<%=render 'layouts/header' %>
+	<div class = "container">
+	<%= render 'layouts/left_col' %>
+	<div class = "main_content"><%= yield %></div>
+	</div>
+	<% else %>
+	<div class = "container">
+		<%= yield %>
+	</div>
+	<% end %>
+	</div>
 </body>
 </html>
