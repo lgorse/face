@@ -5,16 +5,23 @@ describe UsersController do
 	describe 'New' do
 
 		describe 'if the user is signed in' do
+			before(:each) do
+				@user = FactoryGirl.create(:user)
+				test_sign_in(@user)
+			end
 			it "should redirect to the users home page" do
-				pending "implementation of session"
+				get :new
+				response.should redirect_to @user
 			end
 		end
 
 		describe 'if the user is not signed in' do
 			before(:each) do
-				get :new
+				@user = FactoryGirl.create(:user)
 			end
+
 			 it 'should be successful' do
+			 	get :new
 			 	response.should be_successful
 			 end
 
@@ -58,7 +65,8 @@ describe UsersController do
 			end
 
 			it 'should create a session' do
-				pending 'creation of session'
+				post :create, :user => @attr
+				session[:user_id].should == assigns(:user).id
 			end
 
 			it 'should redirect to the user page' do
@@ -70,5 +78,34 @@ describe UsersController do
 		end
 
 	end
+
+	describe 'show' do
+		before(:each) do
+			@user = FactoryGirl.create(:user)
+		end
+
+		describe 'if the user is not signed in' do
+
+			it 'should redirect to root' do
+			get :show, :id => @user.id
+			response.should redirect_to root_path
+		end
+		end
+
+		describe 'if the user is signed in' do
+			before(:each) do
+				test_sign_in(@user)
+			end
+
+			it 'should be successful' do
+				get :show, :id => @user.id
+				response.should be_success
+
+			end
+
+		end
+
+	end
+
 
 end

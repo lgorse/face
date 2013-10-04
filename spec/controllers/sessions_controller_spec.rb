@@ -6,17 +6,15 @@ describe SessionsController do
 
 	describe 'new' do
 		describe 'if there is a session' do
-			pending 'creation of session'
 			before(:each) do
-				#@user = FactoryGirl.create(:user)
-				#test_sign_in(@user)
+				@user = FactoryGirl.create(:user)
+				test_sign_in(@user)
 			end
 			
 
 			it 'should redirect to the corresponding user page' do
-				#get :new
-				#response.should redirect_to @user
-
+				get :new
+				response.should redirect_to @user
 			end
 
 		end
@@ -28,11 +26,6 @@ describe SessionsController do
 
 			it 'should be successful' do
 				response.should be_successful
-			end
-
-			it 'should have a log in form' do
-				pending 'creation of user model'
-
 			end
 
 			it 'should have a link to a new user' do
@@ -60,7 +53,7 @@ describe SessionsController do
 			end
 
 			it 'should create a session with the user id' do
-				pending 'creation of session'
+				session[:user_id].should == @user.id
 			end
 
 		end
@@ -82,6 +75,24 @@ describe SessionsController do
 				session[:user_id].should == nil
 
 			end
+
+		end
+
+	end
+
+	describe 'destroy' do
+		before(:each) do
+			@user = FactoryGirl.create(:user)
+			test_sign_in(@user)
+			delete :destroy
+		end
+
+		it 'should redirect to the root path' do
+			response.should redirect_to root_path
+		end
+
+		it 'should destroy the session' do
+			session[:user_id].should be_nil
 
 		end
 

@@ -4,4 +4,6 @@ Face::Application.routes.draw do
 
   resources :users, :sessions
 
+  match '/logout' => 'sessions#destroy'
+
 end

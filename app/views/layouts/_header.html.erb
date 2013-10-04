@@ -1,3 +1,8 @@
+<% if signed_in %>
+<nav>
+	<%= link_to 'Log out', logout_path %>
+</nav>
+<% end %>
 <% flash.each do |key, value| %>
 			<div class = "flash round", id = "<%= key %>"><%= value %></div>
 			<% end %>
