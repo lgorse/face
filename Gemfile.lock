@@ -34,6 +34,7 @@ GEM
     arel (3.0.2)
     autotest (4.4.6)
       ZenTest (>= 4.4.1)
+    bcrypt-ruby (3.0.1)
     builder (3.0.4)
     capybara (2.1.0)
       mime-types (>= 1.16)
@@ -155,6 +156,7 @@ PLATFORMS
 DEPENDENCIES
   annotate
   autotest
+  bcrypt-ruby (~> 3.0.0)
   capybara
   coffee-rails (~> 3.2.1)
   database_cleaner

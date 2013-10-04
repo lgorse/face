@@ -1,10 +1,22 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id            :integer          not null, primary key
+#  name          :string(255)
+#  email         :string(255)
+#  password_hash :string(255)
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#
+
 require 'spec_helper'
 
 describe User do
 
 	describe "validations" do
 		before(:each) do
-			@attr = {:name => "tester", :email = "tester@test.com"}
+			@attr = {:name => "tester", :email => "tester@test.com", :password =>"testpass"}
 
 		end
 
@@ -46,15 +58,22 @@ describe User do
 
 		describe 'password' do
 
-			pending 'implementation of password' 
-
 			it "should require a password" do
-
+				user = User.new(@attr.merge(:password => ''))
+				user.should_not be_valid
 			end
+
+			it 'should have a minimum length' do
+				user = User.new(@attr.merge(:password => 'nice'))
+				user.should_not be_valid
+			end
+
 
 		end
 
 
 	end
+
+
 
 end

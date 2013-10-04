@@ -1,0 +1,17 @@
+<%= form_for @user do |user| %>
+<%= render 'layouts/error_messages', :object => user.object %>
+<ul>
+	<li>
+<%= user.text_field :name, :placeholder => "Name" %>
+</li>
+<li>
+	<%= user.text_field :email, :placeholder => "E-mail" %>
+</li>
+<li>
+	<%= user.password_field :password, :placeholder => "Password" %>
+</li>
+<li>
+	<%= user.submit 'Sign up' %>
+</li>
+</ul>
+<% end %>
