@@ -4,6 +4,7 @@ FactoryGirl.define do
 	factory :user do
 		name 	"test"
 		email	{generate(:email)}
+		password	"Supercool"
 	end
 end
 
