@@ -10,10 +10,10 @@ describe RelationshipsController do
 			test_sign_in(@user1)
 		end
 
-		it "should create a new relationship" do
+		it "should create a two new relationships (relationship + reverse)" do
 			lambda do
 				post :create, :relationship => @attr
-			end.should change(Relationship, :count).by(1)
+			end.should change(Relationship, :count).by(2)
 
 		end
 	end
@@ -28,10 +28,10 @@ describe RelationshipsController do
 			@relationship = @user1.relationships.find_by_followed_id(@user2)
 		end
 
-		it "should remove the relationship" do
+		it "should remove the two relationships" do
 			lambda do
 				delete :destroy, :id => @relationship
-			end.should change(Relationship, :count).by(-1)
+			end.should change(Relationship, :count).by(-2)
 
 		end
 

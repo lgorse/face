@@ -127,10 +127,10 @@ describe User do
 			@user2 = FactoryGirl.create(:user)
 		end
 
-		it "should add a relationship when invoked" do
+		it "should add two relationships (relationship + reverse) when invoked" do
 			lambda do
 				@user1.friend(@user2)
-			end.should change(Relationship, :count).by(1)
+			end.should change(Relationship, :count).by(2)
 		end
 
 		it "should add the new followed user to the following list" do
