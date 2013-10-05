@@ -1,0 +1,4 @@
+<h1 class = "title"><%= "#{@current_user.name}\'s friends" %></h1>
+<div class = "user_index">
+<%= render :partial => 'users/user_summary', :collection => @friends, :as => :user %>
+</div>

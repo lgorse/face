@@ -34,7 +34,10 @@ end
 
 def friend?(followed)
   self.relationships.find_by_followed_id(followed.id)
+end
 
+def friends
+  self.following
 end
 
 def downcase_email

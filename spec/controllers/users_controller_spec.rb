@@ -132,5 +132,29 @@ describe UsersController do
 
 	end
 
+	describe 'GET friends' do
+		before(:each) do
+			@user = FactoryGirl.create(:user)
+			test_sign_in(@user)
+			2.times do 
+				user = FactoryGirl.create(:user)
+				@user.friend(user)
+			end
+			@user2 = FactoryGirl.create(:user)
+			get :friends, :id => @user.id
+		end
+
+		it "should show the user's friends" do
+			assigns(:friends).should == @user.friends
+
+		end
+
+		it "should not show existing users who are not friends" do
+			assigns(:friends).should_not include(@user2)
+
+		end
+
+	end
+
 
 end

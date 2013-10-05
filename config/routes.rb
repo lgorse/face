@@ -2,7 +2,13 @@ Face::Application.routes.draw do
   
   root :to => 'sessions#new'
 
-  resources :users, :sessions
+  resources :users do
+  	member do
+  		get :friends
+  	end
+
+  end
+  resources :sessions
   resources :relationships, :only => [:create, :destroy]
 
   match '/logout' => 'sessions#destroy'

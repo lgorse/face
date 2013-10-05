@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-	before_filter :authenticate, :only => [:show, :index]
+	before_filter :authenticate, :except => [:new, :create]
 
 	def new
 		if signed_in
@@ -29,5 +29,9 @@ class UsersController < ApplicationController
 	def index
 		@users = User.all.reject{|user| user.id == @current_user.id}
 
+	end
+
+	def friends
+		@friends = @current_user.friends
 	end
 end

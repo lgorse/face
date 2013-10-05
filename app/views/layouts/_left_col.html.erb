@@ -2,5 +2,6 @@
 	<ul>
 <li><%= link_to "#{@current_user.name}", @current_user, :class => "user_name" %></li>
 <li><%= link_to "Who's on Face?", users_path %></li>
+<li><%= link_to "My friends", friends_user_path(@current_user) %></li>
 </ul>
 </div>

@@ -98,6 +98,11 @@ describe User do
 
 		end
 
+		it "should respond to a friends attribute" do
+			@user.should respond_to(:friends)
+
+		end
+
 		it "should respond to a friend method" do
 			@user.should respond_to(:friend)
 
