@@ -15,7 +15,7 @@ describe Relationship do
   
   describe "validations" do
   	before(:each) do
-  		@attr = {:follower_id => 1, :follower_id => 2}
+  		@attr = {:follower_id => 1, :followed_id => 2}
   	end
 
   	it "should have a follower id" do
@@ -27,6 +27,13 @@ describe Relationship do
   		relationship = Relationship.new(@attr.merge(:followed_id => ''))
   		relationship.should_not be_valid
   	end
+
+    it "should be unique" do
+      relationship = Relationship.create(@attr)
+      relationship2 = Relationship.new(@attr)
+      relationship2.should_not be_valid
+
+    end
 
   end
 

@@ -24,12 +24,17 @@ class User < ActiveRecord::Base
 
   before_validation :downcase_email
 
-def follow(followed)
+def friend(followed)
 	self.relationships.create(:followed_id => followed.id)
 end
 
-def unfollow(followed)
+def unfriend(followed)
 	self.relationships.find_by_followed_id(followed.id).destroy
+end
+
+def friend?(followed)
+  self.relationships.find_by_followed_id(followed.id)
+
 end
 
 def downcase_email

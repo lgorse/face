@@ -98,25 +98,30 @@ describe User do
 
 		end
 
-		it "should respond to a follow method" do
-			@user.should respond_to(:follow)
+		it "should respond to a friend method" do
+			@user.should respond_to(:friend)
 
 		end
 
-		it "should respond to an unfollow method" do
-			@user.should respond_to(:unfollow)
+		it "should respond to an unfriend method" do
+			@user.should respond_to(:unfriend)
+		end
+
+		it "should respond to a friend? method" do
+			@user.should respond_to(:friend?)
+
 		end
 
 		it "should destroy the relationship if the user is destroyed" do
 			user2 = FactoryGirl.create(:user)
-			@user.follow(user2)
+			@user.friend(user2)
 			@user.destroy
 			Relationship.where(:follower_id => @user.id, :followed_id => user2.id).should_not exist
 		end
 
 	end
 
-	describe "follow" do
+	describe "friend" do
 		before(:each) do
 			@user1 = FactoryGirl.create(:user)
 			@user2 = FactoryGirl.create(:user)
@@ -124,36 +129,48 @@ describe User do
 
 		it "should add a relationship when invoked" do
 			lambda do
-				@user1.follow(@user2)
+				@user1.friend(@user2)
 			end.should change(Relationship, :count).by(1)
 		end
 
 		it "should add the new followed user to the following list" do
 			lambda do
-				@user1.follow(@user2)
+				@user1.friend(@user2)
 			end.should change(@user1.following, :count).by(1)
+		end
+
+		it 'should show that the user has friended the other' do
+			@user1.friend(@user2)
+			@user1.should be_friend(@user2)
+
 		end
 
 	end
 
-	describe "unfollow" do
+	describe "unfriend" do
 		before(:each) do
 			@user1 = FactoryGirl.create(:user)
 			@user2 = FactoryGirl.create(:user)
-			@user1.follow(@user2)
+			@user1.friend(@user2)
 		end
 
 
 		it "should remove the followed from the follower's following list" do
 			lambda do
-			@user1.unfollow(@user2)
+			@user1.unfriend(@user2)
 		end.should change(@user1.following, :count).by(-1)
 
 		end
 
 		it "should destroy the relationship" do
-			@user1.unfollow(@user2)
+			@user1.unfriend(@user2)
 			Relationship.where(:follower_id => @user1.id, :followed_id => @user2.id).should_not exist
+
+		end
+
+		it "should show that the user is not friends with the other" do
+			@user1.unfriend(@user2)
+			@user1.should_not be_friend(@user2)
 
 		end
 

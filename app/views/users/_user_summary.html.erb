@@ -6,6 +6,8 @@
 <li><%= "Joined on #{user.created_at}" %></li>
 </ul>
 <div class = "summary_right">
-	<%= link_to "Join", root_path, :class => "follow" %>
+	<% unless @current_user == user %>
+	<%= render 'relationships/follow_form', :user => user %>
+	<% end %>
 </div>
 </div>
