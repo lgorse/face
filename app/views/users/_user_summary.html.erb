@@ -1,0 +1,11 @@
+<div class = "user_summary round">
+	<ul class = "summary_left">
+<li>
+	<h3><%= user.name %></h3>
+</li>
+<li><%= "Joined on #{user.created_at}" %></li>
+</ul>
+<div class = "summary_right">
+	<%= link_to "Join", root_path, :class => "follow" %>
+</div>
+</div>

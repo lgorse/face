@@ -10,3 +10,29 @@
 	padding: 15px;
 }
 
+
+.user_summary{
+	width: 500px;
+	border: 1px solid #C2C2CF;
+	height: 50px;
+	padding: 5px 5px 5px 15px;
+	margin-bottom: 10px;
+
+	.summary_left{
+		width: 80%;
+		
+		float: left;
+	}
+
+	.summary_right{
+		float: left;
+		height: 100%;
+	}
+
+	.follow{
+		line-height: 50px;
+
+		
+	}
+}
+
