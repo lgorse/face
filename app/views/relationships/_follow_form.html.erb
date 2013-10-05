@@ -1,4 +1,4 @@
-<div class = "follow_form">
+<div class = "follow_form" id = "follow_form_<%= user.id %>">
 	<% if @current_user.friend?(user) %>
 	<%= render 'relationships/unfollow', :user => user %>
 	<% else %>
