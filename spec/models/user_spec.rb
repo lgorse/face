@@ -2,12 +2,12 @@
 #
 # Table name: users
 #
-#  id            :integer          not null, primary key
-#  name          :string(255)
-#  email         :string(255)
-#  password_hash :string(255)
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
+#  id              :integer          not null, primary key
+#  name            :string(255)
+#  email           :string(255)
+#  password_digest :string(255)
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
 #
 
 require 'spec_helper'
@@ -54,6 +54,15 @@ describe User do
 				user.should_not be_valid
 			end
 
+			it "should be downcased" do
+				upcase_email = "TEST@TESTER.com"
+				user = User.new(@attr.merge(:email => upcase_email))
+				user.save
+				user.email.should == upcase_email.downcase
+
+			end
+
+
 		end
 
 		describe 'password' do
@@ -71,6 +80,82 @@ describe User do
 
 		end
 
+
+	end
+
+	describe "dependencies" do
+		before(:each) do
+			@user = FactoryGirl.create(:user)
+		end
+
+		it "should respond to a followers attribute" do
+			@user.should respond_to(:followers)
+
+		end
+
+		it "should respond to a following attribute" do
+			@user.should respond_to(:following)
+
+		end
+
+		it "should respond to a follow method" do
+			@user.should respond_to(:follow)
+
+		end
+
+		it "should respond to an unfollow method" do
+			@user.should respond_to(:unfollow)
+		end
+
+		it "should destroy the relationship if the user is destroyed" do
+			user2 = FactoryGirl.create(:user)
+			@user.follow(user2)
+			@user.destroy
+			Relationship.where(:follower_id => @user.id, :followed_id => user2.id).should_not exist
+		end
+
+	end
+
+	describe "follow" do
+		before(:each) do
+			@user1 = FactoryGirl.create(:user)
+			@user2 = FactoryGirl.create(:user)
+		end
+
+		it "should add a relationship when invoked" do
+			lambda do
+				@user1.follow(@user2)
+			end.should change(Relationship, :count).by(1)
+		end
+
+		it "should add the new followed user to the following list" do
+			lambda do
+				@user1.follow(@user2)
+			end.should change(@user1.following, :count).by(1)
+		end
+
+	end
+
+	describe "unfollow" do
+		before(:each) do
+			@user1 = FactoryGirl.create(:user)
+			@user2 = FactoryGirl.create(:user)
+			@user1.follow(@user2)
+		end
+
+
+		it "should remove the followed from the follower's following list" do
+			lambda do
+			@user1.unfollow(@user2)
+		end.should change(@user1.following, :count).by(-1)
+
+		end
+
+		it "should destroy the relationship" do
+			@user1.unfollow(@user2)
+			Relationship.where(:follower_id => @user1.id, :followed_id => @user2.id).should_not exist
+
+		end
 
 	end
 
