@@ -1,0 +1,4 @@
+<%= form_for(@current_user.clicks.build(:button_id => MAGIC), :remote => true) do |click| %>
+<%= click.hidden_field :button_id %>
+<%= click.submit "Click now!" %>
+<% end %>

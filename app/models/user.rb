@@ -24,6 +24,8 @@ class User < ActiveRecord::Base
 
   has_many :posts, :dependent => :destroy
 
+  has_many :clicks
+
   before_validation :downcase_email
 
   def friend(followed)

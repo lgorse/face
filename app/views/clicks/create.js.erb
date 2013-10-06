@@ -1,0 +1,4 @@
+$(function(){
+	$(".click_text").html('<%= "You\'ve clicked #{@current_user.clicks.count} times on this button" %>');
+	$(".new_click").find("input[type=submit]").attr('value', "Click again!");
+});

@@ -3,6 +3,10 @@
 		<%= link_to "#{APP_NAME}", root_path %>
 		
 	</nav>
+	<nav class = "magic">
+		<div class = "click_text">
+		<%= "Click here and magical stuff will happen!" %></div>
+		<%= render 'clicks/click_form' %></nav>
 <nav class = "header_right">
 	<%= link_to 'Log out', logout_path %>
 </nav>

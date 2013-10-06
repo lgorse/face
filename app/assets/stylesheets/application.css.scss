@@ -27,9 +27,11 @@
  	border-bottom: 1px solid #C2C2CF;
  	padding-top: 10px;
 
- 	.header_left{
- 		
+ 	nav{
  		display: inline-block;
+ 	}
+
+ 	.header_left{
  		margin-left: 50px;
 
  		a{
@@ -39,9 +41,24 @@
 
  	.header_right{
  		float: right;
- 		display: inline-block;
  		margin-right: 250px;
  		
+ 	}
+
+ 	.magic{
+ 		margin-left: 200px;
+
+ 		div{
+ 			display: inline-block;
+ 		}
+
+ 		
+
+ 		form{
+ 			display: inline-block;
+ 			padding: 0px;
+ 			margin-top: -5px;
+ 		}
  	}
  }
 

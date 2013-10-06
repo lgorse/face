@@ -124,17 +124,29 @@ describe User do
 			Relationship.where(:follower_id => @user.id, :followed_id => user2.id).should_not exist
 		end
 
-		it 'should respond to a posts method' do
-			@user.should respond_to(:posts)
+		describe "posts" do
+
+			it 'should respond to a posts method' do
+				@user.should respond_to(:posts)
+			end
+
+			it "should destroy posts if the user is destroyed" do
+				@user.destroy
+				Post.where(:user_id => @user.id).should be_empty
+			end
+
+			it "should respond to a feed association" do
+				@user.should respond_to(:feed)
+			end
+
 		end
 
-		it "should destroy posts if the user is destroyed" do
-			@user.destroy
-			Post.where(:user_id => @user.id).should be_empty
-		end
+		describe "clicks" do
 
-		it "should respond to a feed association" do
-			@user.should respond_to(:feed)
+			it "should respond to a clicks method" do
+				@user.should respond_to(:clicks)
+
+			end
 
 		end
 
@@ -176,8 +188,8 @@ describe User do
 
 		it "should remove the followed from the follower's following list" do
 			lambda do
-			@user1.unfriend(@user2)
-		end.should change(@user1.following, :count).by(-1)
+				@user1.unfriend(@user2)
+			end.should change(@user1.following, :count).by(-1)
 
 		end
 
@@ -194,7 +206,7 @@ describe User do
 		end
 
 	end
- 
+
 	describe "feed" do
 		before(:each) do
 			@user = FactoryGirl.create(:user)
