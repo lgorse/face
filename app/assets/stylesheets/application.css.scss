@@ -12,7 +12,7 @@
  *= require_tree .
  */
 
-.container{
+ .container{
  	width: 800px;
  	margin: auto auto auto 75px;
  	height: 100%;
@@ -94,4 +94,40 @@
  	}
 
  }
+
+ .flash{
+ 	margin: 5px;
+ 	color: white;
+ 	width: 75%;
+ 	padding: 5px;
+ 	text-align: center;
+ }
+
+ .flash#error{
+ 	background: #e77e88;
+ }
+
+ .error_explanation{
+
+ 	h3, li{
+ 		width: 75%;
+ 		color: #272a34;
+ 	}
+
+ 	h3{
+ 		padding: 10px;
+ 		background: #e77e88;
+ 	}
+
+ 	
+ 	li{
+ 		margin: 5px 0px;
+ 		width: 50%;
+ 		padding: 5px;
+ 		background: #ef9fa7;
+
+ 	}
+ }
+
+
 

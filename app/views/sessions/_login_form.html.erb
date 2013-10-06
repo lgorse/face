@@ -1,4 +1,5 @@
 <%= form_for(:session, :url => :sessions) do |session|%>
+<%= render 'layouts/flash', :flash => flash %>
 <ul>
 	<li>
 <%= session.text_field :email, :placeholder => 'email' %>
