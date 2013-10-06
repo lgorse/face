@@ -22,8 +22,8 @@ class UsersController < ApplicationController
 	end
 
 	def show
-		
-
+		@user = User.find(params[:id])
+		@posts = @user.feed
 	end
 
 	def index

@@ -86,6 +86,7 @@ describe User do
 	describe "dependencies" do
 		before(:each) do
 			@user = FactoryGirl.create(:user)
+			@post = Post.create(:user_id => @user.id, :text => "Text helper!")
 		end
 
 		it "should respond to a followers attribute" do
@@ -114,7 +115,6 @@ describe User do
 
 		it "should respond to a friend? method" do
 			@user.should respond_to(:friend?)
-
 		end
 
 		it "should destroy the relationship if the user is destroyed" do
@@ -122,6 +122,20 @@ describe User do
 			@user.friend(user2)
 			@user.destroy
 			Relationship.where(:follower_id => @user.id, :followed_id => user2.id).should_not exist
+		end
+
+		it 'should respond to a posts method' do
+			@user.should respond_to(:posts)
+		end
+
+		it "should destroy posts if the user is destroyed" do
+			@user.destroy
+			Post.where(:user_id => @user.id).should be_empty
+		end
+
+		it "should respond to a feed association" do
+			@user.should respond_to(:feed)
+
 		end
 
 	end
@@ -180,7 +194,40 @@ describe User do
 		end
 
 	end
+ 
+	describe "feed" do
+		before(:each) do
+			@user = FactoryGirl.create(:user)
+			@user_post = FactoryGirl.create(:post, :user => @user)
+			2.times do
+				friend = FactoryGirl.create(:user)
+				FactoryGirl.create(:post, :user => friend)
+				@user.friend(friend)
+			end
+			@enemy = FactoryGirl.create(:user)
+			@enemy_post = FactoryGirl.create(:post, :user => @enemy)
+		end
 
+		it "should show only the posts from friends" do
+			@user.feed.should_not include(@enemy_post)
+
+		end
+
+		it "should include the user's posts" do
+			@user.feed.should include(@user_post)
+
+		end
+
+		it "should show all the user's friends posts" do
+			Post.all.each do |post|
+				if @user.friend?(post.user)
+					@user.feed.should include(post)
+				end
+			end
+
+		end
+
+	end
 
 
 end

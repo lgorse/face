@@ -1,0 +1,11 @@
+<div class = "post round">
+	<li class = "post_user_name">
+		<%= link_to "#{post.user.name}", post.user %>
+	</li>
+	<li class = "post_text">
+		<%= post.text %>
+	</li>
+	<li class = "post_created">
+		<%= "Posted #{time_ago_in_words(post.created_at)} ago" %>
+	</li>
+</div>

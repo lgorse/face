@@ -10,6 +10,7 @@ Face::Application.routes.draw do
   end
   resources :sessions
   resources :relationships, :only => [:create, :destroy]
+  resources :posts, :only => [:create, :destroy]
 
   match '/logout' => 'sessions#destroy'
 
