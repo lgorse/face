@@ -1,0 +1,6 @@
+$(function(){
+	$("#post_<%= @post.id %>").hide('fast', function(){
+		$(this).remove();
+	});
+
+});

@@ -1,8 +1,8 @@
-<div class = "post round">
+<div class = "post round" id="post_<%= post.id %>">
 	<li class = "post_user_name">
 		<%= link_to "#{post.user.name}", post.user %>
 		<% if @current_user == post.user %>
-		<%= link_to (image_tag "remove.png", :size => "8x8"), post_path(post), :method => :delete, :class => "delete_post", :title => "delete"  %>
+		<%= link_to (image_tag "remove.png", :size => "8x8"), post, :method => :delete, :class => "delete_post", :title => "delete", :remote => true  %>
 		<% end %>
 	</li>
 	<li class = "post_text">

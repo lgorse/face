@@ -1,0 +1,5 @@
+$(function(){
+	$(".user_feed").prepend("<%= escape_javascript(render 'posts/post', :post => @post) %>");
+	$("#post_text").val('');
+
+});
