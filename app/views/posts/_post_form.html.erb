@@ -1,0 +1,6 @@
+<%= form_for(@post) do |post| %>
+<li>
+<%= post.text_area :text, :placeholder => "Post on your wall", :size => '50x8' %>
+</li>
+<%= post.submit %>
+<% end %>

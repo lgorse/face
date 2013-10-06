@@ -1,4 +1,7 @@
 <h1 class = "title"><%= "#{@user.name}\'s profile" %></h1>
+<% if @current_user == @user %>
+<%= render 'posts/post_form' %>
+<% end %>
 <div class = "user_feed">
 	<%= render :partial => 'posts/post', :collection => @posts %>
 </div>

@@ -19,4 +19,23 @@
 		color: #606366;
 	}
 
+	.delete_post{
+		float: right;
+		margin-right: 10px;
+	}
+
+}
+
+.new_post{
+	margin-bottom: 10px;
+	width: 425px;
+	height: 160px;
+
+	textarea{
+		resize: none;
+	}
+
+	input[name=commit]{
+		float: right;
+	}
 }
